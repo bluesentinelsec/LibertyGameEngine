@@ -39,7 +39,8 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install build-essential git pkg-config cmake ninja-build \
-             libsdl2-dev libsdl2-mixer-dev libsdl2-image-dev libsdl2-ttf-dev
+             libsdl2-dev libsdl2-mixer-dev libsdl2-image-dev libsdl2-ttf-dev \
+             valgrind
 
 
     - name: Setup Macos dependencies
@@ -58,4 +59,12 @@ jobs:
         mkdir -p build
         cmake -B build -S .
         cmake --build build
+
+    - name: Unit Tests
+      run: |
+        ${{ matrix.platform.source_cmd }}
         ./build/testHarness
+
+   - name: Valgrind
+     if: runner.os == 'Linux'
+     run: valgrind ./build/testHarness
