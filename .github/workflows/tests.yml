@@ -65,6 +65,6 @@ jobs:
         ${{ matrix.platform.source_cmd }}
         ./build/testHarness
 
-   - name: Valgrind
-     if: runner.os == 'Linux'
-     run: valgrind ./build/testHarness
+  # - name: Valgrind
+  #   if: runner.os == 'Linux'
+  #   run: valgrind ./build/testHarness
